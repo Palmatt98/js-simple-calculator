@@ -1,36 +1,28 @@
 let operatoreSelezionato = null;
-let primoOperando = null;
+let primoOperando = 0;
+let secondoOperando = 0;
+let risultatoFinale = 0;
 
-const buttonsArray = document.querySelector(".numbers").children;
-// elemento.children mi restituisce un array  contenente i figli di elelemento
-console.log(buttonsArray);
-
-for (let i = 0; i < buttonsArray.length; i++) {
-	buttonsArray[i].addEventListener("click", function (event) {
-		console.log("hai cliccato il carattere ", event.target.innerText);
-
-		const resultELement = document.getElementById("result");
-		console.log(resultELement.innerText);
-		console.log(event.target.innerText);
-		if (resultELement.innerText === "0") {
-			resultELement.innerText = "";
-		}
-		resultELement.innerText = resultELement.innerText + event.target.innerText;
-	});
-}
+const resultElement = document.getElementById("result");
 
 const operatori = document.querySelector(".operators").children;
 console.log(operatori);
+// elemento.children mi restituisce un array  contenente i figli di elelemento
+const buttonsArray = document.querySelector(".numbers").children;
+console.log(buttonsArray);
+
+console.log("this iniziale: ", this);  //il this nel contesto globale mi restituisce window invece se messo all'interno di adeventlistener mi ritorna l'elemento html.
+
+for (let i = 0; i < buttonsArray.length; i++) {
+	if (buttonsArray[i].innerText === "=") {
+		buttonsArray[i].addEventListener("click", calcolaRisultato);
+	} else {
+		buttonsArray[i].addEventListener("click", concatenaNumeri);
+	}
+}
+
+
 
 for (let i = 0; i < operatori.length; i++) {
-	operatori[i].addEventListener("click", function (event) {
-		operatoreSelezionato = event.target.innerText;
-		resultELement = document.getElementById("result");
-		primoOperando = resultELement.innerText;
-
-		resultELement.innerText = "0";
-
-		console.log("primoOperando: ", primoOperando);
-		console.log("operatore selezionato: ", operatoreSelezionato);
-	});
+	operatori[i].addEventListener("click", selezionaOperatore);
 }
